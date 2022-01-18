@@ -17,12 +17,11 @@ pipeline {
         stage('Buil stage'){
             steps {
                 // This step should not normally be used in your script. Consult the inline help for details.
-                withDockerRegistry(credentialsId: 'docker-hub', url: 'https://index.docker.io/v1/') {
+                withDockerRegistry(credentialsId: 'ACR', url: 'azureregistryjenkins.azurecr.io') {
                     sh 'docker build -t thekop68/nodejs:v5 .'
                     sh 'docker tag thekop68/nodejs:v5 azureregistryjenkins.azurecr.io/nodejs:v1'
-                    sh 'docker login -u azureregistryjenkins azureregistryjenkins.azurecr.io -p lWbHavMsGHmWI2zHXf0LJlY5C6q76=u/'
                     sh 'docker push azureregistryjenkins.azurecr.io/nodejs:v1'
-                    sh 'docker run -d -p 8081:8081 --name azureregistryjenkins.azurecr.io/nodejs:v1'
+                    sh 'docker run -d -p 8081:8081 --name nodejscacr azureregistryjenkins.azurecr.io/nodejs:v1'
                 }
             }
         }
