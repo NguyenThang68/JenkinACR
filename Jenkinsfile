@@ -17,7 +17,7 @@ pipeline {
         stage('Buil stage'){
             steps {
                 // This step should not normally be used in your script. Consult the inline help for details.
-                withDockerRegistry(credentialsId: 'ACR', url: 'azureregistryjenkins.azurecr.io') {
+                withDockerRegistry(credentialsId: 'ACR', url: 'https://azureregistryjenkins.azurecr.io') {
                     sh 'docker build -t thekop68/nodejs:v5 .'
                     sh 'docker tag thekop68/nodejs:v5 azureregistryjenkins.azurecr.io/nodejs:v1'
                     sh 'docker push azureregistryjenkins.azurecr.io/nodejs:v1'
